@@ -38,7 +38,7 @@ class Profiles extends Component {
             to="/profiles/new"
             className="btn btn-primary new-profile-button"
           >
-            New Profile
+            +
           </Link>
         </div>
         <ProfilesTable profiles={profiles} handleDelete={this.handleDelete} />
