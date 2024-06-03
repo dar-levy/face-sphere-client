@@ -5,9 +5,9 @@ const TableBody = ({ profiles, handleDelete }) => {
   return (
     <tbody>
       {profiles.map((profile) => (
-        <tr key={profile.id}>
+        <tr key={profile._id}>
           <td>
-            <Link to={`/profiles/${profile.id}`}>{profile.first_name}</Link>
+            <Link to={`/profiles/${profile._id}`}>{profile.first_name}</Link>
           </td>
           <td>{profile.last_name}</td>
           <td>{profile.email}</td>

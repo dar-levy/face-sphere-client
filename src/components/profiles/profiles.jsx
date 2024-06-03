@@ -1,21 +1,36 @@
 import React, { Component } from "react";
-import { getProfiles, deleteProfile } from "../services/fakeProfileService";
-import Pagination from "./common/pagination";
-import { paginate } from "../utils/paginate";
+import { getProfiles, deleteProfile } from "../../services/profileService";
+import Pagination from "../common/pagination";
+import { paginate } from "../../utils/paginate";
 import ProfilesTable from "./profilesTable";
-import { Link } from "react-router-dom";
 import "./Profiles.css";
+import ProfilesHeader from "./ProfilesHeader";
+import { toast } from "react-toastify";
 
 class Profiles extends Component {
   state = {
-    profiles: getProfiles(),
+    profiles: [],
     pageSize: 4,
     currentPage: 1,
   };
 
-  handleDelete = (profile) => {
-    const profiles = this.state.profiles.filter((p) => p.id !== profile.id);
+  async componentDidMount() {
+    const { data: profiles } = await getProfiles();
+    this.setState({ profiles: profiles });
+  }
+
+  handleDelete = async (profile) => {
+    const originalProfiles = this.state.profiles;
+    const profiles = originalProfiles.filter((p) => p._id !== profile._id);
     this.setState({ profiles });
+    try {
+      await deleteProfile(profile._id);
+      toast.success("Successfully deleted");
+    } catch (ex) {
+      if (ex.response && ex.response.status === 404) console.log("x");
+      toast.error("This profile has already been deleted.");
+      this.setState({ profiles: originalProfiles });
+    }
   };
 
   handlePageChange = (page) => {
@@ -30,17 +45,7 @@ class Profiles extends Component {
 
     return (
       <>
-        <div className="header">
-          <p className="profile-count">
-            Showing {count} profiles in the database
-          </p>
-          <Link
-            to="/profiles/new"
-            className="btn btn-primary new-profile-button"
-          >
-            New Profile
-          </Link>
-        </div>
+        <ProfilesHeader count={count} />
         <ProfilesTable profiles={profiles} handleDelete={this.handleDelete} />
         <div className="pagination-container">
           <Pagination

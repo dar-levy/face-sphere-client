@@ -1,8 +1,9 @@
 import React from "react";
 import Joi from "joi-browser";
-import Form from "./common/form";
-import { getProfile, saveProfile } from "../services/fakeProfileService";
+import Form from "../common/form";
+import { getProfile, saveProfile } from "../../services/profileService";
 import "./ProfileForm.css";
+import { toast } from "react-toastify";
 
 class ProfileForm extends Form {
   state = {
@@ -23,14 +24,15 @@ class ProfileForm extends Form {
     avatar: Joi.string().required().uri().label("Avatar"),
   };
 
-  componentDidMount() {
-    const profileId = this.props.match.params.id;
-    if (profileId === "new") return;
-
-    const profile = getProfile(profileId);
-    if (!profile) return this.props.history.replace("/not-found");
-
-    this.setState({ data: this.mapToViewModel(profile) });
+  async componentDidMount() {
+    try {
+      const profileId = this.props.match.params.id;
+      if (profileId === "new") return;
+      const { data: profile } = await getProfile(profileId);
+      this.setState({ data: this.mapToViewModel(profile) });
+    } catch (err) {
+      return this.props.history.replace("/not-found");
+    }
   }
 
   mapToViewModel(profile) {
@@ -43,10 +45,10 @@ class ProfileForm extends Form {
     };
   }
 
-  doSubmit = () => {
-    saveProfile(this.state.data);
-
+  doSubmit = async () => {
+    await saveProfile(this.state.data);
     this.props.history.push("/profiles");
+    toast.success("Success");
   };
 
   render() {

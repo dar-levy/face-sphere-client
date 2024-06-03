@@ -1,15 +1,18 @@
 import "./App.css";
-import Profiles from "./components/profiles";
+import Profiles from "./components/profiles/profiles";
 import { Redirect, Route, Switch } from "react-router-dom";
-import ProfileForm from "./components/profileForm";
+import { ToastContainer } from "react-toastify";
+import ProfileForm from "./components/profile-form/profileForm";
 import NotFound from "./components/notFound";
 import NavBar from "./components/navBar";
 import LoginForm from "./components/loginForm";
 import RegisterForm from "./components/registerForm";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
     <>
+      <ToastContainer />
       <NavBar />
       <main className="container">
         <Switch>
