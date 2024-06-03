@@ -27,10 +27,12 @@ class ProfileForm extends Form {
     const profileId = this.props.match.params.id;
     if (profileId === "new") return;
 
-    const { data: profile } = await getProfile(profileId);
-    if (!profile) return this.props.history.replace("/not-found");
-
-    this.setState({ data: this.mapToViewModel(profile) });
+    try {
+      const { data: profile } = await getProfile(profileId);
+      this.setState({ data: this.mapToViewModel(profile) });
+    } catch (err) {
+      return this.props.history.replace("/not-found");
+    }
   }
 
   mapToViewModel(profile) {
