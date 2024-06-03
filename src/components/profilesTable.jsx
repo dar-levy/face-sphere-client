@@ -1,16 +1,10 @@
 import React from "react";
+import TableHeader from "./common/tableHeader";
 
 const ProfilesTable = ({ profiles, handleDelete }) => {
   return (
     <table className="table">
-      <thead>
-        <tr>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Email</th>
-          <th />
-        </tr>
-      </thead>
+      <TableHeader />
       <tbody>
         {profiles.map((profile) => (
           <tr key={profile.id}>
