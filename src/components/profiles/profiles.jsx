@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { getProfiles, deleteProfile } from "../services/fakeProfileService";
-import Pagination from "./common/pagination";
-import { paginate } from "../utils/paginate";
+import { getProfiles, deleteProfile } from "../../services/fakeProfileService";
+import Pagination from "../common/pagination";
+import { paginate } from "../../utils/paginate";
 import ProfilesTable from "./profilesTable";
-import { Link } from "react-router-dom";
 import "./Profiles.css";
+import ProfilesHeader from "./ProfilesHeader";
 
 class Profiles extends Component {
   state = {
@@ -30,17 +30,7 @@ class Profiles extends Component {
 
     return (
       <>
-        <div className="header">
-          <p className="profile-count">
-            Showing {count} profiles in the database
-          </p>
-          <Link
-            to="/profiles/new"
-            className="btn btn-primary new-profile-button"
-          >
-            +
-          </Link>
-        </div>
+        <ProfilesHeader count={count} />
         <ProfilesTable profiles={profiles} handleDelete={this.handleDelete} />
         <div className="pagination-container">
           <Pagination

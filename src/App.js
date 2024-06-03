@@ -1,7 +1,7 @@
 import "./App.css";
-import Profiles from "./components/profiles";
+import Profiles from "./components/profiles/profiles";
 import { Redirect, Route, Switch } from "react-router-dom";
-import ProfileForm from "./components/profileForm";
+import ProfileForm from "./components/profile-form/profileForm";
 import NotFound from "./components/notFound";
 import NavBar from "./components/navBar";
 import LoginForm from "./components/loginForm";

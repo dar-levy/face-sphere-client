@@ -1,7 +1,7 @@
 import React from "react";
 import Joi from "joi-browser";
-import Form from "./common/form";
-import { getProfile, saveProfile } from "../services/fakeProfileService";
+import Form from "../common/form";
+import { getProfile, saveProfile } from "../../services/fakeProfileService";
 import "./ProfileForm.css";
 
 class ProfileForm extends Form {

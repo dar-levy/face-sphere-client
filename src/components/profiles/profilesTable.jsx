@@ -1,6 +1,6 @@
 import React from "react";
-import TableHeader from "./common/tableHeader";
-import TableBody from "./common/tableBody";
+import TableHeader from "../common/tableHeader";
+import TableBody from "../common/tableBody";
 
 const ProfilesTable = ({ profiles, handleDelete }) => {
   return (

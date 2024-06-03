@@ -12,9 +12,3 @@
 .new-profile-button {
     margin-left: auto;
 }
-
-.pagination-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
