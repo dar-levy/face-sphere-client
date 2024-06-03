@@ -5,6 +5,7 @@ import { paginate } from "../../utils/paginate";
 import ProfilesTable from "./profilesTable";
 import "./Profiles.css";
 import ProfilesHeader from "./ProfilesHeader";
+import { toast } from "react-toastify";
 
 class Profiles extends Component {
   state = {
@@ -18,9 +19,17 @@ class Profiles extends Component {
     this.setState({ profiles: profiles });
   }
 
-  handleDelete = (profile) => {
-    const profiles = this.state.profiles.filter((p) => p.id !== profile.id);
+  handleDelete = async (profile) => {
+    const originalProfiles = this.state.profiles;
+    const profiles = originalProfiles.filter((p) => p._id !== profile._id);
     this.setState({ profiles });
+    try {
+      await deleteProfile(profile._id);
+    } catch (ex) {
+      if (ex.response && ex.response.status === 404) console.log("x");
+      toast.error("This profile has already been deleted.");
+      this.setState({ profiles: originalProfiles });
+    }
   };
 
   handlePageChange = (page) => {
