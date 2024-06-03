@@ -7,6 +7,7 @@ import NotFound from "./components/notFound";
 import NavBar from "./components/navBar";
 import LoginForm from "./components/loginForm";
 import RegisterForm from "./components/registerForm";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
