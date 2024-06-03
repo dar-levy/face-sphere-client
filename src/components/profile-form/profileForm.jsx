@@ -24,10 +24,9 @@ class ProfileForm extends Form {
   };
 
   async componentDidMount() {
-    const profileId = this.props.match.params.id;
-    if (profileId === "new") return;
-
     try {
+      const profileId = this.props.match.params.id;
+      if (profileId === "new") return;
       const { data: profile } = await getProfile(profileId);
       this.setState({ data: this.mapToViewModel(profile) });
     } catch (err) {
