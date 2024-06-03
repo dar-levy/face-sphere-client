@@ -16,10 +16,10 @@ export function getProfile(profileId) {
 }
 
 export function saveProfile(profile) {
-  if (profile.id) {
+  if (profile._id) {
     const body = { ...profile };
     delete body.id;
-    return http.put(profileUrl(profile.id), body);
+    return http.put(profileUrl(profile._id), body);
   }
 
   return http.post(apiEndpoint, profile);
