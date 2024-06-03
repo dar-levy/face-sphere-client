@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getProfiles, deleteProfile } from "../../services/fakeProfileService";
+import { getProfiles, deleteProfile } from "../../services/profileService";
 import Pagination from "../common/pagination";
 import { paginate } from "../../utils/paginate";
 import ProfilesTable from "./profilesTable";
@@ -8,10 +8,15 @@ import ProfilesHeader from "./ProfilesHeader";
 
 class Profiles extends Component {
   state = {
-    profiles: getProfiles(),
+    profiles: [],
     pageSize: 4,
     currentPage: 1,
   };
+
+  async componentDidMount() {
+    const { data: profiles } = await getProfiles();
+    this.setState({ profiles: profiles });
+  }
 
   handleDelete = (profile) => {
     const profiles = this.state.profiles.filter((p) => p.id !== profile.id);

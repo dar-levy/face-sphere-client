@@ -1,14 +1,14 @@
 import http from "./httpService";
-import { apiUrl } from "../config.json";
+import config from "../config.json";
 
-const apiEndpoint = apiUrl + "/profiles";
+const apiEndpoint = config.apiUrl + "/profiles";
 
 function profileUrl(id) {
   return `${apiEndpoint}/${id}`;
 }
 
 export function getProfiles() {
-  return http.get(apiEndpoint);
+  return http.get(`${apiEndpoint}?pageNumber=1&pageSize=10`);
 }
 
 export function getProfile(profileId) {
