@@ -2,6 +2,7 @@ import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
 import { getProfile, saveProfile } from "../services/fakeProfileService";
+import "./ProfileForm.css";
 
 class ProfileForm extends Form {
   state = {
@@ -49,9 +50,16 @@ class ProfileForm extends Form {
   };
 
   render() {
+    const { avatar } = this.state.data;
+
     return (
-      <div>
+      <div className="profile-form-container">
         <h1>Profile Form</h1>
+        {avatar && (
+          <div className="avatar-container">
+            <img src={avatar} alt="Avatar" className="avatar" />
+          </div>
+        )}
         <form onSubmit={this.handleSubmit}>
           {this.renderInput("first_name", "First Name")}
           {this.renderInput("last_name", "Last Name")}
