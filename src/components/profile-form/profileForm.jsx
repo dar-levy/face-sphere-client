@@ -46,9 +46,13 @@ class ProfileForm extends Form {
   }
 
   doSubmit = async () => {
-    await saveProfile(this.state.data);
-    this.props.history.push("/profiles");
-    toast.success("Success");
+    try {
+      await saveProfile(this.state.data);
+      this.props.history.push("/profiles");
+      toast.success("Success");
+    } catch (err) {
+      toast.error("Could not save the profile");
+    }
   };
 
   render() {

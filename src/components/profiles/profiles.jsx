@@ -15,8 +15,12 @@ class Profiles extends Component {
   };
 
   async componentDidMount() {
-    const { data: profiles } = await getProfiles();
-    this.setState({ profiles: profiles });
+    try {
+      const { data: profiles } = await getProfiles();
+      this.setState({ profiles: profiles });
+    } catch (err) {
+      toast.error("Could not get the profiles");
+    }
   }
 
   handleDelete = async (profile) => {
