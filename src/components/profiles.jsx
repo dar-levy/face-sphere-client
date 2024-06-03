@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { getProfiles, deleteProfile } from "../services/fakeProfileService";
 import Pagination from "./common/pagination";
+import { paginate } from "../utils/paginate";
 
 class Profiles extends Component {
   state = {
@@ -20,8 +21,9 @@ class Profiles extends Component {
 
   render() {
     const { length: count } = this.state.profiles;
-    const { pageSize, currentPage } = this.state;
+    const { pageSize, currentPage, profiles: allProfiles } = this.state;
     if (count === 0) return <p>There are on profiles in the database</p>;
+    const profiles = paginate(allProfiles, currentPage, pageSize);
 
     return (
       <>
@@ -36,7 +38,7 @@ class Profiles extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.profiles.map((profile) => (
+            {profiles.map((profile) => (
               <tr key={profile.id}>
                 <td>{profile.first_name}</td>
                 <td>{profile.last_name}</td>
