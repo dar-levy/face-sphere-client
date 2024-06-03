@@ -3,6 +3,7 @@ import Joi from "joi-browser";
 import Form from "../common/form";
 import { getProfile, saveProfile } from "../../services/profileService";
 import "./ProfileForm.css";
+import { toast } from "react-toastify";
 
 class ProfileForm extends Form {
   state = {
@@ -47,6 +48,7 @@ class ProfileForm extends Form {
   doSubmit = async () => {
     await saveProfile(this.state.data);
     this.props.history.push("/profiles");
+    toast.success("Success");
   };
 
   render() {

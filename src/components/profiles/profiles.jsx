@@ -25,6 +25,7 @@ class Profiles extends Component {
     this.setState({ profiles });
     try {
       await deleteProfile(profile._id);
+      toast.success("Successfully deleted");
     } catch (ex) {
       if (ex.response && ex.response.status === 404) console.log("x");
       toast.error("This profile has already been deleted.");
