@@ -10,6 +10,7 @@ import RegisterForm from "./components/registerForm";
 import "react-toastify/dist/ReactToastify.css";
 import { Component } from "react";
 import * as auth from "./services/authService";
+import Logout from "./components/logout";
 
 class App extends Component {
   state = {};
@@ -30,6 +31,7 @@ class App extends Component {
           <Switch>
             <Route path="/register" component={RegisterForm} />
             <Route path="/login" component={LoginForm} />
+            <Route path="/logout" component={Logout} />
             <Route path="/profiles/:id" component={ProfileForm} />
             <Route path="/profiles" component={Profiles} />
             <Route path="/not-found" component={NotFound} />

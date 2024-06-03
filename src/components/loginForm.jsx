@@ -22,8 +22,8 @@ class LoginForm extends Form {
       await auth.login(data.username, data.password);
 
       const { state } = this.props.location;
-      window.location = state ? state.from.pathname : "/";
       toast.success("Successfully Logged In");
+      window.location = state ? state.from.pathname : "/";
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors };
