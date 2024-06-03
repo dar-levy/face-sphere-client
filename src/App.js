@@ -1,12 +1,25 @@
-import './App.css';
+import "./App.css";
 import Profiles from "./components/profiles";
+import { Redirect, Route, Switch } from "react-router-dom";
+import ProfileForm from "./components/profileForm";
+import NotFound from "./components/notFound";
+import NavBar from "./components/navBar";
 
 function App() {
-    return (
-        <div className="App">
-            <Profiles/>
-        </div>
-    );
+  return (
+    <>
+      <NavBar />
+      <main className="container">
+        <Switch>
+          <Route path="/profiles/:id" component={ProfileForm} />
+          <Route path="/profiles" component={Profiles} />
+          <Route path="/not-found" component={NotFound} />
+          <Redirect from="/" exact to="/profiles" />
+          <Redirect to="/not-found" />
+        </Switch>
+      </main>
+    </>
+  );
 }
 
 export default App;
