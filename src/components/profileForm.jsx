@@ -1,17 +1,75 @@
 import React from "react";
+import Joi from "joi-browser";
+import Form from "./common/form";
+import { getProfile, saveProfile } from "../services/fakeProfileService";
+import "./ProfileForm.css";
 
-const ProfileForm = ({ match, history }) => {
-  return (
-    <div>
-      <h1>Profile Form {match.params.id} </h1>
-      <button
-        className="btn btn-primary"
-        onClick={() => history.push("/movies")}
-      >
-        Save
-      </button>
-    </div>
-  );
-};
+class ProfileForm extends Form {
+  state = {
+    data: {
+      first_name: "",
+      last_name: "",
+      email: "",
+      avatar: "",
+    },
+    errors: {},
+  };
+
+  schema = {
+    _id: Joi.string(),
+    first_name: Joi.string().required().label("First Name"),
+    last_name: Joi.string().required().label("Last Name"),
+    email: Joi.string().required().email().label("Email"),
+    avatar: Joi.string().required().uri().label("Avatar"),
+  };
+
+  componentDidMount() {
+    const profileId = this.props.match.params.id;
+    if (profileId === "new") return;
+
+    const profile = getProfile(profileId);
+    if (!profile) return this.props.history.replace("/not-found");
+
+    this.setState({ data: this.mapToViewModel(profile) });
+  }
+
+  mapToViewModel(profile) {
+    return {
+      _id: profile._id,
+      first_name: profile.first_name,
+      last_name: profile.last_name,
+      email: profile.email,
+      avatar: profile.avatar,
+    };
+  }
+
+  doSubmit = () => {
+    saveProfile(this.state.data);
+
+    this.props.history.push("/profiles");
+  };
+
+  render() {
+    const { avatar } = this.state.data;
+
+    return (
+      <div className="profile-form-container">
+        <h1>Profile Form</h1>
+        {avatar && (
+          <div className="avatar-container">
+            <img src={avatar} alt="Avatar" className="avatar" />
+          </div>
+        )}
+        <form onSubmit={this.handleSubmit}>
+          {this.renderInput("first_name", "First Name")}
+          {this.renderInput("last_name", "Last Name")}
+          {this.renderInput("email", "Email")}
+          {this.renderInput("avatar", "Avatar")}
+          {this.renderButton("Save")}
+        </form>
+      </div>
+    );
+  }
+}
 
 export default ProfileForm;
