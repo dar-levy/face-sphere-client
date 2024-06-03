@@ -43,15 +43,15 @@ const users = [
     }
 ];
 
-export function getUsers() {
+export function getProfiles() {
     return users;
 }
 
-export function getUser(id) {
+export function getProfile(id) {
     return users.find(u => u.id === id);
 }
 
-export function saveUser(user) {
+export function saveProfile(user) {
     let userInDb = users.find(u => u.id === user.id) || {};
     userInDb.email = user.email;
     userInDb.first_name = user.first_name;
@@ -66,7 +66,7 @@ export function saveUser(user) {
     return userInDb;
 }
 
-export function deleteUser(id) {
+export function deleteProfile(id) {
     let userInDb = users.find(u => u.id === id);
     users.splice(users.indexOf(userInDb), 1);
     return userInDb;
