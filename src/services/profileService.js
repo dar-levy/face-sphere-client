@@ -8,7 +8,7 @@ function profileUrl(id) {
 }
 
 export function getProfiles() {
-  return http.get(`${apiEndpoint}?pageNumber=1&pageSize=10`);
+  return http.get(`${apiEndpoint}`);
 }
 
 export function getProfile(profileId) {
