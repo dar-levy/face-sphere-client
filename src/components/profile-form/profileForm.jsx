@@ -1,7 +1,7 @@
 import React from "react";
 import Joi from "joi-browser";
 import Form from "../common/form";
-import { getProfile, saveProfile } from "../../services/fakeProfileService";
+import { getProfile, saveProfile } from "../../services/profileService";
 import "./ProfileForm.css";
 
 class ProfileForm extends Form {
@@ -23,11 +23,11 @@ class ProfileForm extends Form {
     avatar: Joi.string().required().uri().label("Avatar"),
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const profileId = this.props.match.params.id;
     if (profileId === "new") return;
 
-    const profile = getProfile(profileId);
+    const { data: profile } = await getProfile(profileId);
     if (!profile) return this.props.history.replace("/not-found");
 
     this.setState({ data: this.mapToViewModel(profile) });
