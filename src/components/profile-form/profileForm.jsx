@@ -44,9 +44,8 @@ class ProfileForm extends Form {
     };
   }
 
-  doSubmit = () => {
-    saveProfile(this.state.data);
-
+  doSubmit = async () => {
+    await saveProfile(this.state.data);
     this.props.history.push("/profiles");
   };
 

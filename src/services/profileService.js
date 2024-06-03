@@ -18,7 +18,7 @@ export function getProfile(profileId) {
 export function saveProfile(profile) {
   if (profile._id) {
     const body = { ...profile };
-    delete body.id;
+    delete body._id;
     return http.put(profileUrl(profile._id), body);
   }
 
