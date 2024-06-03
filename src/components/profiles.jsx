@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { getProfiles, deleteProfile } from "../services/fakeProfileService";
 import Pagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
+import ProfilesTable from "./profilesTable";
 
 class Profiles extends Component {
   state = {
@@ -28,33 +29,7 @@ class Profiles extends Component {
     return (
       <>
         <p>Showing {count} profiles in the database</p>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Email</th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>
-            {profiles.map((profile) => (
-              <tr key={profile.id}>
-                <td>{profile.first_name}</td>
-                <td>{profile.last_name}</td>
-                <td>{profile.email}</td>
-                <td>
-                  <button
-                    onClick={() => this.handleDelete(profile)}
-                    className="btn btn-danger btn-sm"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <ProfilesTable profiles={profiles} handleDelete={this.handleDelete} />
         <Pagination
           itemsCount={count}
           currentPage={currentPage}
