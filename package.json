@@ -9,15 +9,15 @@
     "axios": "^0.18.0",
     "bootstrap": "^4.1.1",
     "font-awesome": "^4.7.0",
-    "lodash": "^4.17.10",
     "joi-browser": "^13.4.0",
     "jwt-decode": "^2.2.0",
+    "lodash": "^4.17.10",
     "prop-types": "^15.6.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^4.3.1",
+    "react-router-dom": "^6.23.1",
     "react-scripts": "5.0.1",
-    "react-toastify": "^4.1.0",
+    "react-toastify": "^10.0.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

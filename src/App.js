@@ -1,6 +1,6 @@
 import "./App.css";
 import Profiles from "./components/profiles/profiles";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import ProfileForm from "./components/profile-form/profileForm";
 import NotFound from "./components/notFound";
@@ -29,20 +29,21 @@ class App extends Component {
         <ToastContainer />
         <NavBar user={user} />
         <main className="container">
-          <Switch>
-            <Route path="/register" component={RegisterForm} />
-            <Route path="/login" component={LoginForm} />
-            <Route path="/logout" component={Logout} />
-            <ProtectedRoute path="/profiles/:id" component={ProfileForm} />
+          <Routes>
+            <Route path="/register" element={<RegisterForm />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/logout" element={<Logout />} />
             <Route
-              path="/profiles"
-              render={(props) => <Profiles {...props} user={this.state.user} />}
+              path="/profiles/:id"
+              element={
+                <ProtectedRoute path="/profiles/:id" component={ProfileForm} />
+              }
             />
-            <Route path="/profiles" component={Profiles} />
-            <Route path="/not-found" component={NotFound} />
-            <Redirect from="/" exact to="/profiles" />
-            <Redirect to="/not-found" />
-          </Switch>
+            <Route path="/profiles" element={<Profiles user={user} />} />
+            <Route path="/not-found" element={<NotFound />} />
+            <Route path="/" element={<Navigate to="/profiles" />} />
+            <Route path="*" element={<Navigate to="/not-found" />} />
+          </Routes>
         </main>
       </>
     );

@@ -1,9 +1,17 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import logo from "../icons8-sphere-60.png"; // Adjust the path if necessary
 
 const NavBar = ({ user }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <Link className="navbar-brand" to="/profiles">
+        <img
+          src={logo}
+          alt="Logo"
+          style={{ width: 40, height: 40, marginRight: 10 }}
+        />
+      </Link>
       <Link className="navbar-brand" to="/">
         Face Sphere
       </Link>
@@ -35,7 +43,7 @@ const NavBar = ({ user }) => {
           )}
           {user && (
             <React.Fragment>
-              <NavLink className="nav-item nav-link" to="/profile">
+              <NavLink className="nav-item nav-link" to="/">
                 {user.name}
               </NavLink>
               <NavLink className="nav-item nav-link" to="/logout">
