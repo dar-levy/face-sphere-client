@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const TableBody = ({ profiles, handleDelete }) => {
+const TableBody = ({ profiles, handleDelete, user }) => {
   return (
     <tbody>
       {profiles.map((profile) => (
@@ -12,12 +12,14 @@ const TableBody = ({ profiles, handleDelete }) => {
           <td>{profile.last_name}</td>
           <td>{profile.email}</td>
           <td>
-            <button
-              onClick={() => handleDelete(profile)}
-              className="btn btn-danger btn-sm"
-            >
-              Delete
-            </button>
+            {user && user.isAdmin && (
+              <button
+                onClick={() => handleDelete(profile)}
+                className="btn btn-danger btn-sm"
+              >
+                Delete
+              </button>
+            )}
           </td>
         </tr>
       ))}
