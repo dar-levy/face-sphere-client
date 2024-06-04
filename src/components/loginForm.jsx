@@ -1,5 +1,5 @@
-import React from "react";
-import { Redirect } from "react-router-dom";
+import React, { Component } from "react";
+import { Navigate, useLocation } from "react-router-dom";
 import Joi from "joi-browser";
 import Form from "./common/form";
 import auth from "../services/authService";
@@ -34,7 +34,7 @@ class LoginForm extends Form {
   };
 
   render() {
-    if (auth.getCurrentUser()) return <Redirect to="/" />;
+    if (auth.getCurrentUser()) return <Navigate to="/" />;
 
     return (
       <div>
@@ -49,4 +49,7 @@ class LoginForm extends Form {
   }
 }
 
-export default LoginForm;
+export default function LoginFormWrapper(props) {
+  const location = useLocation();
+  return <LoginForm {...props} location={location} />;
+}

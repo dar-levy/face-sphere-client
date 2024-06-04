@@ -4,6 +4,7 @@ import Form from "../common/form";
 import { getProfile, saveProfile } from "../../services/profileService";
 import "./ProfileForm.css";
 import { toast } from "react-toastify";
+import { useNavigate, useParams } from "react-router-dom";
 
 class ProfileForm extends Form {
   state = {
@@ -26,12 +27,12 @@ class ProfileForm extends Form {
 
   async componentDidMount() {
     try {
-      const profileId = this.props.match.params.id;
+      const profileId = this.props.params.id;
       if (profileId === "new") return;
       const { data: profile } = await getProfile(profileId);
       this.setState({ data: this.mapToViewModel(profile) });
     } catch (err) {
-      return this.props.history.replace("/not-found");
+      return this.props.navigate("/not-found");
     }
   }
 
@@ -48,7 +49,7 @@ class ProfileForm extends Form {
   doSubmit = async () => {
     try {
       await saveProfile(this.state.data);
-      this.props.history.push("/profiles");
+      this.props.navigate("/profiles");
       toast.success("Success");
     } catch (err) {
       toast.error("Could not save the profile");
@@ -78,4 +79,8 @@ class ProfileForm extends Form {
   }
 }
 
-export default ProfileForm;
+export default function ProfileFormWrapper(props) {
+  const params = useParams();
+  const navigate = useNavigate();
+  return <ProfileForm {...props} params={params} navigate={navigate} />;
+}

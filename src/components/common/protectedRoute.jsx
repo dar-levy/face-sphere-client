@@ -1,24 +1,27 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import auth from "../../services/authService";
 
-const ProtectedRoute = ({ path, component: Component, render, ...rest }) => {
-  return (
-    <Route
-      {...rest}
-      render={props => {
-        if (!auth.getCurrentUser())
-          return (
-            <Redirect
-              to={{
-                pathname: "/login",
-                state: { from: props.location }
-              }}
-            />
-          );
-        return Component ? <Component {...props} /> : render(props);
-      }}
-    />
+const ProtectedRoute = ({ component: Component, render, ...rest }) => {
+  const location = useLocation();
+
+  if (!auth.getCurrentUser()) {
+    return (
+      <Navigate
+        to={{
+          pathname: "/login",
+          state: { from: location },
+        }}
+      />
+    );
+  }
+
+  return Component ? (
+    <Component {...rest} />
+  ) : render ? (
+    render(rest)
+  ) : (
+    <Outlet />
   );
 };
 
