@@ -46,11 +46,16 @@ class Profiles extends Component {
     const { pageSize, currentPage, profiles: allProfiles } = this.state;
     if (count === 0) return <p>There are no profiles in the database</p>;
     const profiles = paginate(allProfiles, currentPage, pageSize);
+    const { user } = this.props;
 
     return (
       <>
         <ProfilesHeader count={count} />
-        <ProfilesTable profiles={profiles} handleDelete={this.handleDelete} />
+        <ProfilesTable
+          profiles={profiles}
+          handleDelete={this.handleDelete}
+          user={user}
+        />
         <div className="pagination-container">
           <Pagination
             itemsCount={count}

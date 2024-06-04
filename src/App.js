@@ -34,6 +34,10 @@ class App extends Component {
             <Route path="/login" component={LoginForm} />
             <Route path="/logout" component={Logout} />
             <ProtectedRoute path="/profiles/:id" component={ProfileForm} />
+            <Route
+              path="/profiles"
+              render={(props) => <Profiles {...props} user={this.state.user} />}
+            />
             <Route path="/profiles" component={Profiles} />
             <Route path="/not-found" component={NotFound} />
             <Redirect from="/" exact to="/profiles" />
