@@ -12,7 +12,6 @@ providing functionalities for user authentication, profile management, paginatio
 - **Profile Management**: Create, edit, view, and delete user profiles.
 - **Pagination**: Retrieve paginated lists of profiles.
 - **Routing**: Navigate through different parts of the application.
-- **Swagger API Documentation**: Interactive API documentation.
 
 ## Setup
 
@@ -32,14 +31,6 @@ To start the app, run:
 
 ```bash
 node start
-```
-
-### Start the client
-
-Launch the client:
-
-```bash
-node index.js
 ```
 
 The client will run on port 3000. 
